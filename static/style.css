@@ -2,10 +2,6 @@
 html, body {margin:0px;padding:0px;background-color:#333333}
 
 .biomass {height:100%;margin:0px;padding:0px;overflow:hidden}
-.biomass .panel {height:30%}
-.biomass .tool-bar {text-align:center;font-family:sans-serif;font-size:0.9em}
-.biomass .tool-button {}
-.biomass .info-console {background-color:#222222;color:#00FF00}
 
 .bm-map {height:100%}
 .bm-draggable{cursor:move;}
@@ -13,12 +9,13 @@ html, body {margin:0px;padding:0px;background-color:#333333}
 .bm-banner {font-family:sans-serif;font-size:2em;font-weight:bold;position:absolute;z-index:99;top:15px;left:15px;color:#eeeeee;text-shadow:0px 0px 30px black;}
 .bm-toolbox {width:400px;background:rgba(255,255,255,0.1);padding:0px 0px;border:5px;border-radius:4px;position:absolute;top:50px;left:15px;z-index:100;font-size:1em;color:#ffffff;font-weight:bold;}
 .bm-title {font-family:sans-serfi;font-size:1em;text-align:center;}
-.bm-console {width:350px;margin:3px;font-weight:normal;font-size:1em;text-align:center;color:#FFFF00}
+.bm-console {width:350px;margin:3px;font-weight:normal;font-size:1em;text-align:center;color:#FFFF00;background-color:rgba(250,250,250,0);border-radius:4px}
 .bm-hr {border: 0;height: 1px;background-image:linear-gradient(to right,rgba(200, 200, 200, 0),rgba(200, 200, 200, 0.75),rgba(200, 200, 200, 0));}}
 
-.bm-table {table-layout:fixed;}
+.bm-table {border-collapse:collapse;border:0px;height:100%;width:100%;table-layout:fixed;}
 .bm-table tr {background:rgba(250,250,250,0);}
-.bm-table td {color:#FFFFFF;font-family:san-serf;font-size:0.8em;text-align:left;padding-left:10px;padding-top:4px;padding-right:10px}
+.bm-table td {color:#FFFFFF;font-family:san-serf;font-size:0.8em;text-align:left;text-shadow:8px 8px 8px black;padding-left:10px;padding-right:10px}
+.bm-toolbar {text-align:center;font-family:sans-serf;font-size:0.9em;}
 
 [data-loader='circle']
 {

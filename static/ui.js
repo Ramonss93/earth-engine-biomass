@@ -1,6 +1,10 @@
 // --------------------- Common Functions -----------------------------------
 
-function initPage(){
+function initPage() {
+    enableDraggable();
+}
+
+function enableDraggable() {
     $('body').on('mousedown', 'div', function(e) {
         if($(this).hasClass('bm-draggable')) {
             $("body").css("cursor", "move");

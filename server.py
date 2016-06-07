@@ -27,6 +27,8 @@ import ee
 import config
 import json
 
+BIOMASS_DATA_ID = "users/shengwu/biomass/1126"
+
 class MainHandler(webapp2.RequestHandler):
     def get(self, path=''):
         mapId = GetBiomassMapId()
@@ -42,15 +44,31 @@ class PixelValueHandler(webapp2.RequestHandler):
         lat = self.request.get('lat')
         lng = self.request.get('lng')
         pnt = ee.Geometry.Point(float(lng), float(lat))
-        img = ee.Image("users/shengwu/AGB")
+        img = ee.Image(BIOMASS_DATA_ID)
         val = img.reduceRegion(ee.Reducer.mean(), pnt)
         self.response.headers['Content-Type'] = 'application/json'
         self.response.out.write(json.dumps(val.getInfo()))
-        
+
+class RegionValueHandler(webapp2.RequestHandler):
+    def get(self):
+        coords = self.request.get('coordinates')
+        plg = ee.Geometry.Polygon([float(x) for x in coords.split(",")])
+        img = ee.Image(BIOMASS_DATA_ID)
+        val = img.reduceRegion(ee.Reducer.mean(), plg)
+        self.response.headers['Content-Type'] = 'application/json'
+        self.response.out.write(json.dumps(val.getInfo()))
+
+class TestHandler(webapp2.RequestHandler):
+    def get(self):
+        template = JINJA2_ENVIRONMENT.get_template('test.html')
+        template_values = {}
+        self.response.out.write(template.render(template_values))        
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler),
-    ('/pixelVal', PixelValueHandler)
+    ('/pixelVal', PixelValueHandler),
+    ('/regionVal', RegionValueHandler),
+    ('/test.html', TestHandler),
+    ('/', MainHandler)
 ])
 
 ###############################################################################
@@ -58,10 +76,10 @@ app = webapp2.WSGIApplication([
 ###############################################################################
 
 def GetBiomassMapId():
-    img = ee.Image("users/shengwu/AGB")
+    img = ee.Image(BIOMASS_DATA_ID)
     return img.getMapId({
         'min': 0.0,
-        'max': 215.0,
+        'max': 220.0,
         'palette': '000000,00FF00'
     })
 

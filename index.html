@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-light_green.min.css" />
     <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
     <link rel="stylesheet" href="/static/style.css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=drawing"></script>
     <script src="https://www.google.com/jsapi"></script>
     <script src="/static/ui.js"></script>
     <script src="/static/script.js"></script>
@@ -16,20 +17,25 @@
     <div class='bm-banner'>BIOMASS</div>
     <div id='bm-toolbox' class='bm-toolbox bm-shadow mdl-grid'>
         <div class="bm-draggable bm-title mdl-cell mdl-cell--12-col" target-bind="bm-toolbox">Biomass&nbsp;&nbsp;Analysis&nbsp;&nbsp;Toolbox</div>
-        <div class="mdl-cell mdl-cell--4-col tool-bar">
-            <button class="mdl-button mdl-js-button mdl-button--icon pan-button">
+        <div class="mdl-cell mdl-cell--3-col bm-toolbar">
+            <button class="mdl-button mdl-js-button mdl-button--icon" id="pan-button">
                 <i class="material-icons tool-button">pan_tool</i>
             </button><br/>Pan Map
         </div>
-        <div class="mdl-cell mdl-cell--4-col tool-bar">
-            <button class="mdl-button mdl-js-button mdl-button--icon pixel-button">
+        <div class="mdl-cell mdl-cell--3-col bm-toolbar">
+            <button class="mdl-button mdl-js-button mdl-button--icon" id="pixel-button">
                 <i class="material-icons tool-button">flare</i>
             </button><br/>Piexl Value
         </div>
-        <div class="mdl-cell mdl-cell--4-col tool-bar">
-            <button class="mdl-button mdl-js-button mdl-button--icon region-button">
+        <div class="mdl-cell mdl-cell--3-col bm-toolbar">
+            <button class="mdl-button mdl-js-button mdl-button--icon" id="region-button">
                 <i class="material-icons tool-button">gradient</i>
             </button><br/> Region Value
+        </div>
+        <div class="mdl-cell mdl-cell--3-col bm-toolbar">
+            <button class="mdl-button mdl-js-button mdl-button--icon" id="clean-button">
+                <i class="material-icons">delete_forever</i>
+            </button><br/> Clean
         </div>
         <div class='mdl-cell mdl-cell--12-col'><hr class='bm-hr'><div>
         <div class='mdl-cell mdl-cell--12-col'>
