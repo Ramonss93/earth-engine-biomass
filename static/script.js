@@ -150,7 +150,7 @@ biomass.App.prototype.getPixelValue = function(self, lat, lng) {
         dataType: 'json',
         data: {'lat':lat, 'lng':lng},
         beforeSend: function(xhr){ xhr.setRequestHeader('Accept', 'application/json'); },
-        success: function(data){ self.showPixelVal(lat, lng, data); },
+        success: function(data){ self.showPixelVal(data); },
         error: function(data){ alert(data); }
     });
 }
@@ -163,26 +163,26 @@ biomass.App.prototype.getRegionValue = function(self, coords) {
         dataType: 'json',
         data: {'coordinates':coords},
         beforeSend: function(xhr){ xhr.setRequestHeader('Accept', 'application/json'); },
-        success: function(data){ self.showRegionVal(coords, data); },
+        success: function(data){ self.showRegionVal(data); },
         error: function(data){ alert(data); }
     });
 }
 
-biomass.App.prototype.showPixelVal = function(lat, lng, val) {
-    var content = "<center><table class='bm-table'>";
-    content += "<tr><td>BIOMASS</td><td>" + (val['b1'] == null ? 'No Data' : val['b1'])+ "</td></tr>";
-    content += "<tr><td>LATITUDE</td><td>" + lat + "</td></tr>";
-    content += "<tr><td>LONGITUDE</td><td>" + lng + "</td></tr>";
-    content += "</table></center>";
-    $('.bm-console').html(content);    
+biomass.App.prototype.showPixelVal = function(vals) {
+    var keys = ["biomass",  "longitude", "latitude"]
+    this.showValues(keys, vals)
 }
 
-biomass.App.prototype.showRegionVal = function(coords, val) {
+biomass.App.prototype.showRegionVal = function(vals) {
+    var keys = ["count", "area", "min", "max", "sum", "mean", "stddev"];
+    this.showValues(keys, vals)
+}
+
+biomass.App.prototype.showValues = function(keys, vals) {
     var content = "<center><table class='bm-table'>";
-    var keys = ["count", "min", "max", "sum", "mean", "stddev"];
     for(var i=0; i<keys.length; i++){
         key = keys[i];
-        content += "<tr><td>" + key + "</td><td>" + (val[key] == null ? 'No Data' : val[key])+ "</td></tr>";
+        content += "<tr><td>" + key + "</td><td>" + (vals[key] == null ? 'No Data' : this.fmtNum(vals[key]))+ "</td></tr>";
     }
     content += "</table></center>";
     $('.bm-console').html(content);    
@@ -192,7 +192,7 @@ biomass.App.prototype.waiting = function() {
     $(".bm-console").html("<center><div data-loader='circle'></div></center>")
 }
 
-biomass.App.prototype.fmtCoor = function(coor) {
-    return Math.round(coor * 1000) / 1000.0 
+biomass.App.prototype.fmtNum = function(coor) {
+    return Math.round(coor * 10000) / 10000.0 
 }
 

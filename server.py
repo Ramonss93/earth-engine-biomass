@@ -45,9 +45,12 @@ class PixelValueHandler(webapp2.RequestHandler):
         lng = self.request.get('lng')
         pnt = ee.Geometry.Point(float(lng), float(lat))
         img = ee.Image(BIOMASS_DATA_ID)
-        val = img.reduceRegion(ee.Reducer.mean(), pnt)
+        val = {}
+        val['biomass'] = img.reduceRegion(ee.Reducer.mean(), pnt).getInfo()['b1']
+        val['longitude'] = lng
+        val['latitude']  = lat
         self.response.headers['Content-Type'] = 'application/json'
-        self.response.out.write(json.dumps(val.getInfo()))
+        self.response.out.write(json.dumps(val))
 
 class RegionValueHandler(webapp2.RequestHandler):
     def get(self):
@@ -62,12 +65,12 @@ class RegionValueHandler(webapp2.RequestHandler):
         total = img.reduceRegion(ee.Reducer.sum(), plg)
         stddev= img.reduceRegion(ee.Reducer.stdDev(), plg)
         val["count"] = count.getInfo()['b1']
+        val["area"]  = plg.area().getInfo()
         val["sum"]   = total.getInfo()['b1']
         val["mean"]  = mean.getInfo()['b1']
         val["max"]   = minmax.getInfo()['b1_max']
         val["min"]   = minmax.getInfo()['b1_min']
         val["stddev"]= stddev.getInfo()['b1']
-        print val
         self.response.headers['Content-Type'] = 'application/json'
         self.response.out.write(json.dumps(val))
 
@@ -92,7 +95,7 @@ def GetBiomassMapId():
     img = ee.Image(BIOMASS_DATA_ID)
     return img.getMapId({
         'min': 0.0,
-        'max': 220.0,
+        'max': 250.0,
         'palette': '000000,00FF00'
     })
 

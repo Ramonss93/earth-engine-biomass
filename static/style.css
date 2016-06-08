@@ -14,7 +14,7 @@ html, body {margin:0px;padding:0px;background-color:#333333}
 
 .bm-table {border-collapse:collapse;border:0px;height:100%;width:100%;table-layout:fixed;}
 .bm-table tr {background:rgba(250,250,250,0);}
-.bm-table td {color:#FFFFFF;font-family:san-serf;font-size:0.8em;text-align:left;text-shadow:8px 8px 8px black;padding-left:10px;padding-right:10px}
+.bm-table td {color:#FFFFFF;font-family:san-serf;font-size:0.9em;text-align:left;text-shadow:8px 8px 8px black;padding-left:10px;padding-right:10px}
 .bm-toolbar {text-align:center;font-family:sans-serf;font-size:0.9em;}
 
 [data-loader='circle']
