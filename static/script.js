@@ -179,7 +179,11 @@ biomass.App.prototype.showPixelVal = function(lat, lng, val) {
 
 biomass.App.prototype.showRegionVal = function(coords, val) {
     var content = "<center><table class='bm-table'>";
-    content += "<tr><td>BIOMASS</td><td>" + (val['b1'] == null ? 'No Data' : val['b1'])+ "</td></tr>";
+    var keys = ["count", "min", "max", "sum", "mean", "stddev"];
+    for(var i=0; i<keys.length; i++){
+        key = keys[i];
+        content += "<tr><td>" + key + "</td><td>" + (val[key] == null ? 'No Data' : val[key])+ "</td></tr>";
+    }
     content += "</table></center>";
     $('.bm-console').html(content);    
 }

@@ -54,9 +54,22 @@ class RegionValueHandler(webapp2.RequestHandler):
         coords = self.request.get('coordinates')
         plg = ee.Geometry.Polygon([float(x) for x in coords.split(",")])
         img = ee.Image(BIOMASS_DATA_ID)
-        val = img.reduceRegion(ee.Reducer.mean(), plg)
+        #reducer = ee.Reducer.count().combine(ee.Reducer.mean()) #.combine(ee.Reducer.minMax())
+        val = {}
+        count = img.reduceRegion(ee.Reducer.count(), plg)
+        mean  = img.reduceRegion(ee.Reducer.mean(), plg)
+        minmax= img.reduceRegion(ee.Reducer.minMax(), plg)
+        total = img.reduceRegion(ee.Reducer.sum(), plg)
+        stddev= img.reduceRegion(ee.Reducer.stdDev(), plg)
+        val["count"] = count.getInfo()['b1']
+        val["sum"]   = total.getInfo()['b1']
+        val["mean"]  = mean.getInfo()['b1']
+        val["max"]   = minmax.getInfo()['b1_max']
+        val["min"]   = minmax.getInfo()['b1_min']
+        val["stddev"]= stddev.getInfo()['b1']
+        print val
         self.response.headers['Content-Type'] = 'application/json'
-        self.response.out.write(json.dumps(val.getInfo()))
+        self.response.out.write(json.dumps(val))
 
 class TestHandler(webapp2.RequestHandler):
     def get(self):
