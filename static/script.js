@@ -21,12 +21,13 @@ biomass.App = function(mapType) {
     this.initPixelButton(this, $("#pixel-button"), this._map, this._drawingManager);
     this.initRegionButton(this, $("#region-button"), this._map, this._drawingManager);
     this.initCleanButton(this, $("#clean-button"), this._map, this._drawingManager);
+    this.initVisibilityButton(this, $("#visibility-button"), this._map, this._drawingManager);
+    this.initTestButton(this, $("#test-button"), this._map, this._drawingManager);
     this.initMapClicked(this, this._map);
 }
 
 biomass.App.EE_URL = "https://earthengine.googleapis.com";
 biomass.App.DEFAULT_ZOOM = 11;
-//biomass.App.DEFAULT_CENTER = {lng: -93.95336151123047, lat: 47.9533748859759};
 biomass.App.DEFAULT_CENTER = {lng: -94.31350708007812, lat: 48.16333749877855};
 biomass.App.STATUS = {PAN:0, PICK_UP_PIXEL:1, PICK_UP_REGION:2};
 biomass.App.prototype._current_status = biomass.App.STATUS.PAN;
@@ -59,8 +60,8 @@ biomass.App.prototype.createMap = function(mapType) {
             position: google.maps.ControlPosition.RIGHT_TOP,
         }
     }
-    var mapEl = $('.bm-map').get(0);
-    var map = new google.maps.Map(mapEl, mapOptions);
+    var node = $('.bm-map').get(0);
+    var map = new google.maps.Map(node, mapOptions);
     map.overlayMapTypes.push(mapType);
     return map;
 }
@@ -141,6 +142,26 @@ biomass.App.prototype.initCleanButton = function(self, btn, map, mgr) {
     });
 }
 
+biomass.App.prototype.initVisibilityButton = function(self, btn, map, mgr) {
+    $(btn).click(function(e){
+        if(self._map.overlayMapTypes.length > 0) {
+            var layer = self._map.overlayMapTypes.getAt(0);
+            if (layer.getOpacity() == 0) {
+                layer.setOpacity(1);
+            } else {
+                layer.setOpacity(0);
+            }
+        }
+    });
+}
+
+biomass.App.prototype.initTestButton = function(self, btn, map, mgr) {
+    $(btn).click(function(e){
+        console.log("testing");
+        var overlay = self._map.overlayMapTypes.getAt(0);
+        overlay.setOpacity(0.3);
+    });
+}
 
 biomass.App.prototype.getPixelValue = function(self, lat, lng) {
     $.ajax({

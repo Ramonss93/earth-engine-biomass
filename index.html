@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="/static/style.css">
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=drawing"></script>
     <script src="https://www.google.com/jsapi"></script>
-    <script src="/static/ui.js"></script>
-    <script src="/static/script.js"></script>
+    <script type="text/javascript" src="/static/ui.js"></script>
+    <script type="text/javascript" src="/static/script.js"></script>
 </head>
 <body>
 <div class="biomass">
@@ -35,11 +35,21 @@
         <div class="mdl-cell mdl-cell--3-col bm-toolbar">
             <button class="mdl-button mdl-js-button mdl-button--icon" id="clean-button">
                 <i class="material-icons">delete_forever</i>
-            </button><br/>Clean
+            </button><br/>Clear
+        </div>
+        <div class="mdl-cell mdl-cell--3-col bm-toolbar">
+            <button class="mdl-button mdl-js-button mdl-button--icon" id="visibility-button">
+                <i class="material-icons">visibility</i>
+            </button><br/>Visibility
+        </div>
+        <div class="mdl-cell mdl-cell--3-col bm-toolbar" style="visibility:hidden">
+            <button class="mdl-button mdl-js-button mdl-button--icon" id="test-button">
+                <i class="material-icons">build</i>
+            </button><br/>Test
         </div>
         <div class='mdl-cell mdl-cell--12-col'><hr class='bm-hr'><div>
-        <div class='mdl-cell mdl-cell--12-col'>
-           <div class='bm-console'>&nbsp;</div>
+        <div class='mdl-cell mdl-cell--9-col'>
+            <div class='bm-console'>&nbsp;</div>
         <div>
     </div>
     <div>
